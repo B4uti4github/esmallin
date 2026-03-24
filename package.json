@@ -1,0 +1,15 @@
+{
+  "name": "esmallin",
+  "version": "1.0.0",
+  "description": "An framework that makes small improvements to help you develop better and easier-to-build website.",
+  "keywords": [
+    "framework"
+  ],
+  "license": "ISC",
+  "author": "b4uti4gd",
+  "type": "commonjs",
+  "main": "esmallin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
