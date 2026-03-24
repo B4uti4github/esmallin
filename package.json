@@ -9,6 +9,10 @@
   "author": "b4uti4gd",
   "type": "commonjs",
   "main": "esmallin.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/B4uti4github/esmallin.git" 
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
