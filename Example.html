@@ -19,14 +19,15 @@
     </style>
     <script src="esmallin.js"></script>
     <script>
-        const esmallinTranslate = new EsmallinTranslate();
+        const esmallinlash = new Esmallinlash();
 
         var element = document.getElementById('container')
 
-        esmallinTranslate.add(element, 100, 100)
+        esmallinlash.add(element, 100, 100)
         setTimeout(() => {
             element.x = 500
             element.rotation = 45
+            element.hue = 180
         }, 2000)
         
     </script>
