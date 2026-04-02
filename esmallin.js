@@ -1,9 +1,7 @@
 // # Esmallin.js 
 //
 // A framework that makes small improvements to help you develop a better and easier-to-build website.
-//
-// For now we have this:
-// - **EsmallinTranslate**: An class for an better translate like in Flash, but using HTML Elements :D.
+
 
 class EsmallinTranslate {
     constructor() {
@@ -87,7 +85,6 @@ class Esmallinlash {
 
         // Estilos base para que se comporte como un objeto de Flash
         element.style.position = 'absolute';
-        element.style.transformOrigin = '0 0'; 
         
         this.list.push(element);
     }
@@ -117,5 +114,59 @@ class Esmallinlash {
                 contrast(${el.contrast})
             `;
         });
+    }
+}
+
+class EsmallinStyle {
+    constructor(code) {
+        this.displaylist = []; 
+        this.code = code;
+        this.lastTime = 0;
+        this.start();
+    }
+
+    add(type, selector) {
+        const query = type === "id" ? `#${selector}` : `.${selector}`;
+        const found = document.querySelectorAll(query);
+        
+        found.forEach(element => {
+            let canvas = element.querySelector(".esmallin-canvas");
+            if (!canvas) {
+                canvas = document.createElement("canvas");
+                canvas.className = "esmallin-canvas";
+                canvas.style.position = "absolute";
+                canvas.style.top = "0";
+                canvas.style.left = "0";
+                canvas.style.pointerEvents = "none";
+                element.appendChild(canvas);
+            }
+            const ctx = canvas.getContext("2d");
+            // Guardamos la referencia para no tener que buscarla luego
+            this.displaylist.push({ element, canvas, ctx });
+        });
+    }
+
+    start(currentTime = 0) {
+        // 1. Calcular Delta Time
+        const dt = (currentTime - this.lastTime) / 1000;
+        this.lastTime = currentTime;
+
+        // 2. Usar la lista ya guardada (Rápido)
+        this.displaylist.forEach(item => {
+            const { element, canvas, ctx } = item;
+
+            // Auto-ajuste de tamaño
+            if (canvas.width !== element.offsetWidth || canvas.height !== element.offsetHeight) {
+                canvas.width = element.offsetWidth;
+                canvas.height = element.offsetHeight;
+            }
+
+            // 3. Ejecutar código del usuario pasando el dt
+            if (this.code) {
+                this.code.call(element, ctx, dt);
+            }
+        });
+
+        requestAnimationFrame((time) => this.start(time));
     }
 }

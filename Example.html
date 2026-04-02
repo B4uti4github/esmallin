@@ -3,27 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test Esmallin</title>
 </head>
 <body>
     <div id="container">
         <h1>Esmallin</h1>
     </div>
+    <div id="helloWorld">
+        <p>Hello, World!</p>
+    </div>
     <style>
+        #helloWorld {
+            color: white;
+            background-color: black;
+            width: 200px;
+            height: 50px;
+            font-family: sans-serif;
+        }
         #container {
             width: 100px;
             height: 100px;
             background-color: lightblue;
             font-family: sans-serif;
+            transform-origin: center center;
         }
     </style>
     <script src="esmallin.js"></script>
     <script>
         const esmallinlash = new Esmallinlash();
 
-        var element = document.getElementById('container')
+        const esmallinStyle = new EsmallinStyle(function(ctx, dt) {
+            this.rotation += 60 * dt;
+            ctx.reset()
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 8;
+            ctx.strokeRect(0, 0, this.offsetWidth, this.offsetHeight);
+        });
 
+        const esmallinStyle2 = new EsmallinStyle(function(ctx, dt) {
+            this.y += 10 * dt;
+            this.x += 10 * dt;
+        });
+
+
+
+        esmallinStyle.add("id", "container");
+
+        esmallinStyle2.add("id", "helloWorld");
+
+        var element = document.getElementById('container')
+        var element2 = document.getElementById('helloWorld')
         esmallinlash.add(element, 100, 100)
+        esmallinlash.add(element2, 0, 0)
         setTimeout(() => {
             element.x = 500
             element.rotation = 45
